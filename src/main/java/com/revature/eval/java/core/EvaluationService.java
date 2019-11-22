@@ -15,7 +15,31 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		
-		return "";
+		//create a new array with the length equal to the string
+		char [] b = new char[string.length()];
+		
+		//we'll define a new variable 'r' and set equal to the string length - 1(subtract 1 because
+		//index starts at 0, so if a string has 5 indices, it would be 0,1,2,3,4)
+		//r is important because it will be used to count backwards in a for loop. In our for-loop
+		//as we count upwards, we'll set the index of our newly created array 'b' equal to the position of r
+		//and retrieve the actual character letter using the charAt() method
+		
+		//as each index 'i' obtains the character letter at 'r', we have 'r' count down until
+		// 'r' is zero (which also means 'i' is no longer less than the string.length(). 
+		//This signifies the end of the for loop.
+		int r = (string.length()-1);
+		for(int i= 0; i < string.length(); i++) {
+			b[i] = string.charAt(r);
+			r--;	
+		}
+		
+		//Now that we've used the for loop to reverse the string/array letters, we'll need to 
+		//instantiate a new string, which we'll call 'c'. We will give String c the parameter of 'b'
+		//which means we're giving String 'c' the reversed order we created above.
+		String c = new String(b);
+		
+		//return 'c'
+		return c;
 	}
 
 	/**
@@ -27,8 +51,22 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		//instantiate a new string array with the length of the phrase
+		String [] strArr = phrase.split(" |-");
+		char [] result = new char [strArr.length];
+		
+		for(int i = 0; i < strArr.length; i++) {
+			result[i] = strArr[i].charAt(0);
+			
+		}
+		
+		String acronym = String.valueOf(result);
+		acronym = acronym.toUpperCase();
+		System.out.println(acronym);
+		
+		
+		return acronym;
 	}
 
 	/**
