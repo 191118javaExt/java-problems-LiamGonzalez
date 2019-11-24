@@ -14,31 +14,37 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String reverse(String string) {
-		
-		//create a new array with the length equal to the string
-		char [] b = new char[string.length()];
-		
-		//we'll define a new variable 'r' and set equal to the string length - 1(subtract 1 because
-		//index starts at 0, so if a string has 5 indices, it would be 0,1,2,3,4)
-		//r is important because it will be used to count backwards in a for loop. In our for-loop
-		//as we count upwards, we'll set the index of our newly created array 'b' equal to the position of r
-		//and retrieve the actual character letter using the charAt() method
-		
-		//as each index 'i' obtains the character letter at 'r', we have 'r' count down until
-		// 'r' is zero (which also means 'i' is no longer less than the string.length(). 
-		//This signifies the end of the for loop.
-		int r = (string.length()-1);
-		for(int i= 0; i < string.length(); i++) {
+
+		// create a new array with the length equal to the string
+		char[] b = new char[string.length()];
+
+		// we'll define a new variable 'r' and set equal to the string length -
+		// 1(subtract 1 because
+		// index starts at 0, so if a string has 5 indices, it would be 0,1,2,3,4)
+		// r is important because it will be used to count backwards in a for loop. In
+		// our for-loop
+		// as we count upwards, we'll set the index of our newly created array 'b' equal
+		// to the position of r
+		// and retrieve the actual character letter using the charAt() method
+
+		// as each index 'i' obtains the character letter at 'r', we have 'r' count down
+		// until
+		// 'r' is zero (which also means 'i' is no longer less than the string.length().
+		// This signifies the end of the for loop.
+		int r = (string.length() - 1);
+		for (int i = 0; i < string.length(); i++) {
 			b[i] = string.charAt(r);
-			r--;	
+			r--;
 		}
-		
-		//Now that we've used the for loop to reverse the string/array letters, we'll need to 
-		//instantiate a new string, which we'll call 'c'. We will give String c the parameter of 'b'
-		//which means we're giving String 'c' the reversed order we created above.
+
+		// Now that we've used the for loop to reverse the string/array letters, we'll
+		// need to
+		// instantiate a new string, which we'll call 'c'. We will give String c the
+		// parameter of 'b'
+		// which means we're giving String 'c' the reversed order we created above.
 		String c = new String(b);
-		
-		//return 'c'
+
+		// return 'c'
 		return c;
 	}
 
@@ -51,21 +57,20 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		
-		//instantiate a new string array with the length of the phrase
-		String [] strArr = phrase.split(" |-");
-		char [] result = new char [strArr.length];
-		
-		for(int i = 0; i < strArr.length; i++) {
+
+		// instantiate a new string array with the length of the phrase
+		String[] strArr = phrase.split(" |-");
+		char[] result = new char[strArr.length];
+
+		for (int i = 0; i < strArr.length; i++) {
 			result[i] = strArr[i].charAt(0);
-			
+
 		}
-		
+
 		String acronym = String.valueOf(result);
 		acronym = acronym.toUpperCase();
 		System.out.println(acronym);
-		
-		
+
 		return acronym;
 	}
 
@@ -119,18 +124,31 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
+			if (sideOne == sideTwo && sideOne == sideThree) {
+				return true;
+			}
 			return false;
+
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if (isEquilateral() == true) {
+				return true;
+			} else if (sideOne == sideTwo && sideOne != sideThree) {
+				return true;
+			} else if (sideTwo == sideThree && sideTwo != sideOne) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if (isIsosceles() != true && isEquilateral() != true) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 	}
@@ -151,8 +169,66 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		char[] onePt = { 'A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T' };
+		char[] twoPt = { 'D', 'G' };
+		char[] threePt = { 'B', 'C', 'M', 'P' };
+		char[] fourPt = { 'F', 'H', 'V', 'W', 'Y' };
+		char[] fivePt = { 'K' };
+		char[] eightPt = { 'J', 'X' };
+		char[] tenPt = { 'Q', 'Z' };
+
+		int score = 0;
+		string = string.toUpperCase();
+
+		// for-loop to test letters in each array
+		// this for-loop is not to pass through a particular array
+		for (int i = 0; i < string.length(); i++) {
+
+			for (int x = 0; x < onePt.length; x++) {
+				if (string.charAt(i) == onePt[x]) {
+					score++;
+				}
+
+			}
+			
+			for (int x = 0; x < twoPt.length; x++) {
+				if(string.charAt(i) == twoPt[x]) {
+					score +=2;
+				}
+			}
+			
+			for (int x = 0; x < threePt.length; x++) {
+				if(string.charAt(i) == threePt[x]) {
+					score +=3;
+				}
+			}
+			
+			for (int x = 0; x < fourPt.length; x++) {
+				if(string.charAt(i) == fourPt[x]) {
+					score +=4;
+				}
+			}
+			
+			for (int x = 0; x < fivePt.length; x++) {
+				if(string.charAt(i) == fivePt[x]) {
+					score +=5;
+				}
+			}
+			
+			for (int x = 0; x < eightPt.length; x++) {
+				if(string.charAt(i) == eightPt[x]) {
+					score +=8;
+				}
+			}
+			
+			for (int x = 0; x < tenPt.length; x++) {
+				if(string.charAt(i) == tenPt[x]) {
+					score +=10;
+				}
+			}
+		}
+
+		return score;
 	}
 
 	/**
