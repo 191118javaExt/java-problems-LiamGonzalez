@@ -369,8 +369,37 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		String [] str = string.split(" ");
+		
+		for(int i = 0; i < str.length; i++) {
+			StringBuilder strb = new StringBuilder(str[i]);
+			while(strb.charAt(0) != 'a' && strb.charAt(0) != 'e' && strb.charAt(0) != 'i'
+					&& strb.charAt(0) != 'o' && strb.charAt(0) != 'u') {
+				if(strb.charAt(0) == 'q') {
+					strb.append("qu");
+					strb.delete(0, 2);
+				}
+				else {
+					strb.append(strb.charAt(0));
+					strb.deleteCharAt(0);
+				}
+				
+			}
+			strb.append("ay");
+			str[i] = strb.toString();
+		}
+		
+		
+		StringBuilder newArr = new StringBuilder(str[0]);
+		
+		for(int i = 1; i < str.length; i++) {
+			newArr.append(" ");
+			newArr.append(str[i]);
+		}
+		String translation = new String(newArr);
+		System.out.println(translation);
+		return translation;
 	}
 
 	/**
