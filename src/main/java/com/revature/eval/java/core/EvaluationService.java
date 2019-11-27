@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -289,8 +290,13 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		
+		//String [] arr = 
+		
+		
+		
+		
+		//return null;
 	}
 
 	/**
@@ -408,7 +414,7 @@ public class EvaluationService {
 	 * 
 	 * For example:
 	 * 
-	 * 9 is an Armstrong number, because 9 = 9^1 = 9 10 is not an Armstrong number,
+	 * 9 is an Armstrong number, because 9 = 9^1 = 9. 10 is not an Armstrong number,
 	 * because 10 != 1^2 + 0^2 = 2 153 is an Armstrong number, because: 153 = 1^3 +
 	 * 5^3 + 3^3 = 1 + 125 + 27 = 153 154 is not an Armstrong number, because: 154
 	 * != 1^3 + 5^3 + 4^3 = 1 + 125 + 64 = 190 Write some code to determine whether
@@ -418,7 +424,13 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
+		//need a method that separates each digit before we can multiply
+		//each integer by the total number of integers
+		
+		
+		
+		
+		
 		return false;
 	}
 
