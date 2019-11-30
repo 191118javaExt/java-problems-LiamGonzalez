@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -289,15 +290,34 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
-	public Map<String, Integer> wordCount(String string) {
+	
+		public Map<String, Integer> wordCount(String string) {
+			String[] arr;
+			if (string.contains("\n")) {
+				arr = string.split(",\\n");
+			} else if (string.contains(",")) {
+				arr = string.split(",");
+			} else {
+				arr = string.split(" ");
+			}
+			Map<String, Integer> map = new HashMap<>();
+			for (int i = 0; i < arr.length; i++) {
+				Integer count = map.get(arr[i]);
+				if (count == null) {
+					map.put(arr[i], 1);
+				} else {
+					map.put(arr[i], ++count);
+				}
+			}
+			return map;
+		}		
 		
-		//String [] arr = 
 		
 		
 		
 		
 		//return null;
-	}
+	
 
 	/**
 	 * 7. Implement a binary search algorithm.
@@ -354,8 +374,9 @@ public class EvaluationService {
 		public void setSortedList(List<T> sortedList) {
 			this.sortedList = sortedList;
 		}
-
 	}
+
+	
 
 	/**
 	 * 8. Implement a program that translates from English to Pig Latin.
@@ -427,11 +448,26 @@ public class EvaluationService {
 		//need a method that separates each digit before we can multiply
 		//each integer by the total number of integers
 		
+		//separate the digits, multiply each digit individually to the power of
+		//the total number of digits, and determine whether or not the sum of those
+		//calculations is equal to the actual number
 		
+		//convert input to a string
+		//
 		
+		String num = String.valueOf(input);
 		
+		int value = 0;
+		for(int i = 0; i < num.length(); i++) {
+			value += Math.pow(Character.getNumericValue(num.charAt(i)),num.length());
+		}
 		
-		return false;
+		if(value == input) {
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 
 	/**
@@ -445,8 +481,27 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> arr = new ArrayList<Long>();
+		
+		while(l % 2 == 0) {
+			l /= 2;
+			arr.add(2L);
+		}
+		
+		for(long i = 3L; i <= Math.sqrt(l); i+=2L) {
+			while (l % i == 0) {
+				arr.add(i);
+				l /= i;
+			}
+			
+		}
+		
+		if(l > 1) {
+			arr.add(l);
+		}
+		
+		
+		return arr;
 	}
 
 	/**
@@ -706,3 +761,4 @@ public class EvaluationService {
 	}
 
 }
+
