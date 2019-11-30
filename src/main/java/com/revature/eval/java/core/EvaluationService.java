@@ -539,8 +539,33 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			StringBuilder letter = new StringBuilder();
+			
+			for(int i = 0; i < string.length(); i++) {
+				char c = string.charAt(i);
+				int n = c;
+				if(n >= 65 &&n <= 90) {
+					n += key;
+					if(n > 90) {
+						n-=26;
+					}
+				}else if(n >= 97 && n <= 122) {
+					n  += key;
+					if(n > 122) {
+						n -= 26;
+					}
+				}
+				c = (char) n;
+				
+				letter.append(c);
+				
+				
+			}
+			
+			String answer = new String(letter);
+			
+			
+			return answer;
 		}
 
 	}
