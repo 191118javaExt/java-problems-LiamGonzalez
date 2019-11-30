@@ -583,8 +583,24 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		//first calculate whether or not a number is prime
+		//once a number has been deemed prime, determine
+		//what prime number it is
+		List<Integer> nthPrime = new ArrayList<Integer>();
+		
+		for(int j = 2; nthPrime.size() < i; j++) {
+			int c = 0;
+			for(int y = 2; y < j; y++) {
+				if(j % y ==0) {
+					c++;
+				}
+			}
+			if(c == 0) {
+				nthPrime.add(j);
+			}
+		}
+
+		return nthPrime.get(i-1);
 	}
 
 	/**
