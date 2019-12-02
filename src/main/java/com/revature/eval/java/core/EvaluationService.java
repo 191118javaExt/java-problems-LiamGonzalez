@@ -3,6 +3,7 @@ package com.revature.eval.java.core;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -636,8 +637,26 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			string = string.toLowerCase();
+			StringBuilder atb = new StringBuilder();
+			
+			String ciph = "zyxwvutsrqponmlkjihgfedcba";
+			String abc = "abcdefghijklmnopqrstuvwxyz";
+			
+			for(int i = 0; i < string.length(); i++) {
+				if(Character.isAlphabetic(string.charAt(i))) {
+					atb.append(ciph.charAt(abc.indexOf(string.charAt(i))));
+				} else if(Character.isDigit(string.charAt(i))) {
+					atb.append(string.charAt(i));
+				}
+			}
+			
+			for(int j= 5; j <atb.length(); j+= 6) {
+				atb.insert(j, " ");
+			}
+			
+			String enc = atb.toString();
+			return enc;
 		}
 
 		/**
@@ -647,10 +666,28 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			StringBuilder sb = new StringBuilder();
+			
+			String abcd = "abcdefghijklmnopqrstuvwxyz";
+			String zyxw = "zyxwvutsrqponmlkjihgfedcba";
+			
+			for (int i = 0; i < string.length(); i++) {
+				if (Character.isWhitespace(string.charAt(i)) == false) {
+					int ch = zyxw.indexOf(string.charAt(i));
+					if (ch != -1) {
+						sb.append(abcd.charAt(ch));
+					} else if (Character.isDigit(string.charAt(i))) {
+						sb.append(string.charAt(i));
+					}
+				}
+			}
+			String decode = new String(sb);
+			return decode;
+			}
 		}
-	}
+			
+		
+	
 
 	/**
 	 * 15. The ISBN-10 verification process is used to validate book identification
@@ -675,9 +712,52 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+
+		boolean valid = false;
+		
+		StringBuilder sb = new StringBuilder(string);
+		
+		while (sb.indexOf("-") != -1) {
+			sb.delete(sb.indexOf("-"), sb.indexOf("-") + 1);
+		}
+		
+		string = new String(sb);
+		int total = 0;
+		for (int i = 0; i < string.length(); i++) {
+			if (sb.length() != 10) {
+				valid = false;
+			} else if (sb.charAt(9) == 'X') {
+				int c = 2;
+				total += 10;
+				for (int x = 9; x > 0; x--) {
+					char num = string.charAt(x - 1);
+
+					if (Character.getNumericValue(num) < 10) {
+						total += (Character.getNumericValue(num) * (c));
+					}
+					c++;
+				}
+			} else {
+				int c = 1;
+				for (int y = 10; y > 0; y--) {
+					char num = string.charAt(y - 1);
+					if (Character.getNumericValue(num) < 10) {
+						total += ((Character.getNumericValue(num) * (c)));
+					}
+					c++;
+				
+				}
+			}
+		}
+		
+		
+		if (total % 11 == 0) {
+			valid = true;
+		}
+		return valid;
+
 	}
+	
 
 	/**
 	 * 16. Determine if a sentence is a pangram. A pangram (Greek: παν γράμμα, pan
@@ -693,9 +773,32 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		
+		boolean pan = false;
+		
+		StringBuilder ab = new StringBuilder("abcdefghijklmnopqrstuvwxyz");
+		
+		string = string.toLowerCase();
+		
+		for (int i = 0; i < string.length(); i++) {
+			for (int x = 0; x < ab.length(); x++) {
+				if (string.charAt(i) == ab.charAt(x)) {
+					ab.deleteCharAt(x);
+				}
+			}
+		}
+		if (ab.length() == 0) 
+		{
+			pan = true;
+		}
+		else
+		{
+			pan = false;
+		}
+		
+		return pan;
 	}
+	
 
 	/**
 	 * 17. Calculate the moment when someone has lived for 10^9 seconds.
@@ -724,9 +827,28 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		// TODO Write an implementation for this method declaration
-		return 0;
-	}
+		
+			HashSet<Integer> hs = new HashSet<Integer>();
+			
+			int total = 0;
+			
+			for (int j = 0; j < set.length; j++) {
+				int base = set[j];
+				for (int y = 1; base < (i - set[j]); y++) {
+					base = set[j];
+					base *= y;
+					hs.add(base);
+					
+				}
+			}
+			for (Integer z : hs) {
+				total += z;
+				
+			}
+
+			return total;
+		}
+	
 
 	/**
 	 * 19. Given a number determine whether or not it is valid per the Luhn formula.
@@ -765,9 +887,46 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+
+		StringBuilder sb = new StringBuilder();
+		
+		boolean luhn = false;
+		
+		for (int i = 0; i < string.length(); i++) {
+			if (Character.isDigit(string.charAt(i))) {
+				sb.append(string.charAt(i));
+			}
+		}
+		
+		if (sb.length() < 2) {
+			luhn = false;
+		} else {
+			for (int i = 0; i < (sb.length() - 1); i++) {
+				i++;
+				int j = Character.getNumericValue(sb.charAt(i));
+				j *= 2;
+				if (j > 9) {
+						j -= 9;
+				}
+				
+				sb.setCharAt(i, (char) (j + 48));
+			}
+			
+			int total = 0;
+			
+			for (int i = 0; i < sb.length(); i++) {
+				total += Character.getNumericValue(sb.charAt(i));
+			}
+			if (total % 10 == 0) {
+				luhn = true;
+			} else {
+				luhn = false;
+			}
+		}
+		return luhn;
 	}
+		
+	
 
 	/**
 	 * 20. Parse and evaluate simple math word problems returning the answer as an
@@ -797,9 +956,81 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+
+			
+
+			String[] words = string.split(" ");
+			int first;
+			int second;
+			int ans = 0;
+
+			
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < words[2].length(); i++) {
+				if (Character.isDigit(words[2].charAt(i))) {
+					sb.append(words[2].charAt(i));
+				}
+			}
+			String parse = new String(sb);
+			first = Integer.parseInt(parse);
+			sb.setLength(0);
+
+			if (words.length == 5) {
+				for (int i = 0; i < words[4].length(); i++) {
+					if (Character.isDigit(words[4].charAt(i))) {
+						sb.append(words[4].charAt(i));
+					}
+				}
+			} else {
+				for (int i = 0; i < words[5].length(); i++) {
+					if (Character.isDigit(words[5].charAt(i))) {
+						sb.append(words[5].charAt(i));
+					}
+				}
+			}
+			parse = new String(sb);
+			second = Integer.parseInt(parse);
+
+			// make sure negative numbers are negative
+
+			if (words.length == 5) {
+				if (words[2].charAt(0) == '-') {
+					first *= -1;
+				}
+				if (words[4].charAt(0) == '-') {
+					second *= -1;
+				}
+			} else {
+				if (words[2].charAt(0) == '-') {
+					first *= -1;
+				}
+				if (words[5].charAt(0) == '-') {
+					second *= -1;
+				}
+			}
+
+			// do the math
+			switch (words[3]) {
+			case "plus":
+				ans = (first + second);
+				break;
+			case "minus":
+				ans = (first - second);
+				break;
+			case "multiplied":
+				ans = (first * second);
+				break;
+			case "divided":
+				ans = (first / second);
+				break;
+			default:
+				break;
+			}
+
+			return ans;
+		}
+
 	}
 
-}
+
 
